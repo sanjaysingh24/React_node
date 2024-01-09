@@ -1,0 +1,9 @@
+.login_register a{
+cursor: pointer;
+}
+.login_register a:hover{
+    text-decoration: underline;
+}
+.outer_container{
+    text-align: center;
+}
