@@ -1,16 +1,23 @@
 import { User } from "../model/UserModel.js";
 import {Cart} from "../model/CartItemModel.js";
+import  bcrypt from 'bcrypt';
+const saltRounds =10;
 
 // to create a new user\
-export const createUser = async (req,res)=>{
+export const createUser =  (req,res)=>{
  const username = req.body.user;
  const useremail = req.body.email;
  const userpassword= req.body.password;
   try{
-    const newUser = new User({user:username,email:useremail,password:userpassword});
-    const doc = await newUser.save();
+    bcrypt.hash(userpassword, saltRounds, function(err, hash) {
+      // Store hash in your password DB.
+      
+    const newUser = new User({user:username,email:useremail,password:hash});
+    const doc =  newUser.save();
     
     res.json(doc);
+  });
+
  
 
 }catch(e){
@@ -20,17 +27,31 @@ export const createUser = async (req,res)=>{
 }
 
 export const loginUser = async(req,res)=>{
-const{username,password} = req.body;
+  const user = req.body.user;
+  const password = req.body.password;
 
   try{
-    const check = await User.findOne({username});
-    if(check&& password === check.password){
-      console.log("login");
 
-    }
-    else{
-      console.log("not login");
-    }
+
+
+    const check = await User.findOne({user});
+    bcrypt.compare(password, check.password, function(err, result) {
+     if(result==true){
+      res.json({success: true})
+     }    
+     else{
+      res.json({success: false});
+     }
+  });
+    // if(check&& check.password === password){
+    //   res.json({success:true})
+     
+
+    // }
+    // else{
+      
+    //   res.json({success:false})
+    // }
   }catch(e){
 
     console.log(e);
