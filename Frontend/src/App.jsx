@@ -7,6 +7,7 @@ import { BrowserRouter,Route,Routes,Navigate } from 'react-router-dom';
 import Home from './Page/Home';
 function App() {
 const [token,setToken] = useState();
+
   return (
     <>
      <BrowserRouter>

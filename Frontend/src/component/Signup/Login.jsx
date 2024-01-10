@@ -1,9 +1,11 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import './Register.css';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
+
 const Login = ({setToken}) => {
 const [data,setdata]  = useState({});
+
 
 const navigate = useNavigate();
 const handlechange =(e)=>{

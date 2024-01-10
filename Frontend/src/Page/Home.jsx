@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-
+import axios from 'axios';
 const Home = () => {
 const [data,setData] = useState({});
 const handlechange = (e)=>{
@@ -7,8 +7,13 @@ const handlechange = (e)=>{
 
 }
 
-    const handlesubmit=(e)=>{
+    const handlesubmit=async(e)=>{
 e.preventDefault();
+try{
+const senddata  = await axios.post('')
+}catch(e){
+  console.log(e.message);
+}
 }
   return (
     <div>
