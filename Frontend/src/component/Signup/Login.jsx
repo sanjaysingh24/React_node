@@ -2,8 +2,9 @@ import React,{useState} from 'react'
 import './Register.css';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
-const Login = () => {
+const Login = ({setToken}) => {
 const [data,setdata]  = useState({});
+
 const navigate = useNavigate();
 const handlechange =(e)=>{
     const{name,value} = e.target;
@@ -15,17 +16,16 @@ const handlesubmit =async (e)=>{
 e.preventDefault();
 
 try{
-const senddata = await axios.post("http://localhost:3000/login",data)
-if(senddata.data.success){
-    navigate('/home');
-    console.log("login");
-}else{
-   console.log("error");
-}
+const senddata = await axios.post("http://localhost:3000/login",data);
+
+navigate('/home');
+const token  = senddata.data;
+setToken(token);
+   
 
 
 }catch(e){
-
+console.log(e.message);
 }
 
 

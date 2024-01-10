@@ -1,5 +1,6 @@
 import { User } from "../model/UserModel.js";
 import {Cart} from "../model/CartItemModel.js";
+import jwt from 'jsonwebtoken'
 import  bcrypt from 'bcrypt';
 const saltRounds =10;
 
@@ -37,7 +38,9 @@ export const loginUser = async(req,res)=>{
     const check = await User.findOne({user});
     bcrypt.compare(password, check.password, function(err, result) {
      if(result==true){
-      res.json({success: true})
+      const token = jwt.sign({user},'secretkey');
+      res.json(token);
+   
      }    
      else{
       res.json({success: false});
@@ -54,7 +57,7 @@ export const loginUser = async(req,res)=>{
     // }
   }catch(e){
 
-    console.log(e);
+    console.log('errrrorrr');
   }
 }
 

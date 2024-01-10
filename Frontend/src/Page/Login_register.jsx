@@ -3,11 +3,11 @@ import Login from '../component/Signup/Login'
 import Register from '../component/Signup/Register'
 
 
-const Login_register = () => {
+const Login_register = ({setToken}) => {
 const [islogin,setlogin] =useState(false);
   return (
     <div className='outer_container'>
-        {islogin?<Login></Login>:<Register></Register>}
+        {islogin?<Login setToken ={setToken}></Login>:<Register></Register>}
       <p className=' login_register '> {islogin?' New User ':'Already Register '} <a  onClick={()=>setlogin(!islogin)}>{islogin?'register here':' login here'}</a></p>
     </div> 
   )
