@@ -63,14 +63,15 @@ console.log(err);
         <input type="text" name='user' onChange={handleinput} value={data.user} />
         <input type="email" name='email' onChange={handleinput} value={data.email} />
         <button>Submituser</button>
-        <h1>{result.map((item)=>{
-          return(
-            <h1>{item}</h1>
-          )
-        })}</h1>
+       
       
       
     </form>
+    <div>{result.map((item,index)=>{
+          return(
+            <h1 key={index}>{item}</h1>
+          )
+        })}</div>
 </div>
 
 {/* this one is for item submit */}

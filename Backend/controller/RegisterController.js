@@ -2,10 +2,11 @@ import { User } from "../model/UserModel.js";
 import {Cart} from "../model/CartItemModel.js";
 import jwt from 'jsonwebtoken'
 import  bcrypt from 'bcrypt';
+import { response } from "express";
 const saltRounds =10;
 
 // to create a new user\
-export const createUser =  (req,res)=>{
+export const createUser = async (req,res)=>{
  const username = req.body.user;
  const useremail = req.body.email;
  const userpassword= req.body.password;
@@ -15,8 +16,8 @@ export const createUser =  (req,res)=>{
       
     const newUser = new User({user:username,email:useremail,password:hash});
     const doc =  newUser.save();
-    
     res.json(doc);
+    
   });
 
  
@@ -39,7 +40,10 @@ export const loginUser = async(req,res)=>{
     bcrypt.compare(password, check.password, function(err, result) {
      if(result==true){
       const token = jwt.sign({user},'secretkey');
-      res.json(token);
+      const userId = check._id;
+      res.json({token,userId});
+     
+     
    
      }    
      else{
@@ -64,13 +68,14 @@ export const loginUser = async(req,res)=>{
 // //add items to usercart
 export const cartitems  = async(req,res)=>{
     try{
-      const userId  = req.params.UserId;
+      const userId  = req.params.userId;
       const {item} = req.body;
     //find the user's cart and update of create if the cart is not found
     let usercart = await Cart.findOne({userId});
     if(!usercart){
         usercart = new Cart(
           {userId:userId,items:[]});
+          console.log("useridfound")
     }
     //add the item  to the  user's cart
     usercart.items.push(item);
@@ -78,6 +83,7 @@ export const cartitems  = async(req,res)=>{
 
   
     res.json(itemss);
+    console.log(itemss);
   
 
     }catch(err){
@@ -85,6 +91,12 @@ export const cartitems  = async(req,res)=>{
         res.status(500);
     }
 }
+//get the userdata 
+//middlwate function for authentication
+
+
+
+
 
 // //get usercarts item
 // export const getCartItem = async(req,res)=>{

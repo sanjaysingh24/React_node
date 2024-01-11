@@ -1,8 +1,11 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 import axios from 'axios';
 import './Register.css';
+
 const Register = () => {
+
+const [userid,setuserid] = useState([]);
 const [data,setdata] = useState({});
 const handlechange =(e)=>{
 const{name,value} = e.target;
@@ -11,10 +14,12 @@ setdata((prev)=>{
 })
 }
 const handlesubmit=async (e)=>{
+
 e.preventDefault();
 try{
   const senddata = await axios.post("http://localhost:3000/users",data);
-  console.log(senddata.data._id);
+  console.log(senddata.data);
+
   
 }catch(e){
     console.log(e);
@@ -41,7 +46,7 @@ setdata({
 <>
 <div className="container">
 <form onSubmit = {handlesubmit}>
-   <h1>Sign up</h1>
+   <h1>Sign up {userid}</h1>
    <div className='Form_container'>
    <div className='emailbox formbox'>
         <input type="email"name='email' placeholder='Enter your email' onChange={handlechange} value={data.email} />
@@ -62,6 +67,7 @@ setdata({
    </div>
 
 </form>
+
 
 </div>
 </>

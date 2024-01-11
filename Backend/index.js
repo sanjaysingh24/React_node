@@ -17,7 +17,8 @@ mongoose.connect("mongodb://localhost:27017/Usercart");
 app.post("/users",createUser);
 app.post("/login",loginUser);
 //app.get("/getcart/:userId",getCartItem);
-app.post("/addcart/:UserId",cartitems);
+app.post("/addcart/:useId",cartitems);
+
 
 app.listen(port,()=>{
     console.log(`listening on ${port}`);

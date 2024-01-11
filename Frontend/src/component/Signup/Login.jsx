@@ -1,10 +1,12 @@
-import React,{useState,useContext} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import './Register.css';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
+import { globaldata } from '../Context/AppContext';
 
 const Login = ({setToken}) => {
 const [data,setdata]  = useState({});
+const {userId,sets} = useContext(globaldata)
 
 
 const navigate = useNavigate();
@@ -22,8 +24,12 @@ const senddata = await axios.post("http://localhost:3000/login",data);
 
 navigate('/home');
 const token  = senddata.data;
+
 setToken(token);
-   
+
+const ID =token.userId;
+
+sets(ID);
 
 
 }catch(e){
@@ -35,7 +41,9 @@ setdata({
     user:'',
     password:'',
 })
+
 }
+
   return (
     <div className="container">
     <form onSubmit={handlesubmit}>

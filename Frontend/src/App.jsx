@@ -5,12 +5,13 @@ import './App.css'
 import Login_register from './Page/Login_register'
 import { BrowserRouter,Route,Routes,Navigate } from 'react-router-dom';
 import Home from './Page/Home';
+import Userform from './component/Userform'
 function App() {
 const [token,setToken] = useState();
 
   return (
     <>
-     <BrowserRouter>
+     {/* <BrowserRouter>
      <Routes >
          <Route path='/' element={<Login_register setToken ={(newtoken)=>{setToken(newtoken)}}></Login_register>}/>
          <Route path='/home' element ={token?<Home></Home>:<Navigate to='/'></Navigate>}/>
@@ -19,7 +20,8 @@ const [token,setToken] = useState();
      </Routes>
 
 
-     </BrowserRouter>
+     </BrowserRouter> */}
+     <Userform></Userform>
     </>
   )
 }

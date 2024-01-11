@@ -2,12 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import GlobaldataProvider from './component/Context/AppContext'
-
+import Globaldataprovider from './component/Context/AppContext.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-  <GlobaldataProvider>
-  <App />
-  </GlobaldataProvider>
+
+<Globaldataprovider>
+<App />
+</Globaldataprovider>
+
   </React.StrictMode>,
 )
